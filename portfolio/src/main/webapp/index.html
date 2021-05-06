@@ -2,18 +2,67 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>James's Portfolio</title>
     <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click <a href="/hello">here</a> to see content created by server code.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+        <h1>James B. Gregory</h1>
+        <img src="/images/James Gregory - Headshot.png" height=300pxs>
+        <div>Hello there! I'm a sophomore at Washington University in St. Louis studying Computer Science, Business, and Philosophy. </div>
+
+        <p>Here's some of what I've been working on:</p>
+        <p>     – Twitter's 2020 #TakeFlight Hackathon</p>
+        <p>     – Java Content Creator for Minecraft Realms</p>
+        <p>     – Webmaster for WashU's DSP Chapter</p>
+        <!-- <button onclick="addRandomGreeting()">Hello</button> -->
+        <button onclick="getSkill()">Show a Skill</button>
+        <p id="skill-container"></p>
+        <form action="/form-handler" method="POST">
+            <p>Contact me:</p>
+            <textarea id="text" name="text-input">Hey James, </textarea>
+            <br/>
+            <input type="submit" />
+        </form>
+
+        <br/>
+        
+        <button onclick="requestTranslation();">Spanish</button>
+        <br/>
+        <div id="result"></div>
+        <!-- skills button -->
+        <script>
+            async function getSkill() {
+            const responseFromServer = await fetch('/skills');
+            const textFromResponse = await responseFromServer.text();
+
+            const dateContainer = document.getElementById('skill-container');
+            dateContainer.innerText = textFromResponse;
+            }
+        </script>
+
+        <!-- translation -->
+        <script>
+            function requestTranslation() {
+                const text = document.getElementById('text').value;
+
+                const resultContainer = document.getElementById('result');
+                resultContainer.innerText = 'Loading...';
+
+                const params = new URLSearchParams();
+                params.append('text', text);
+
+                fetch('/translate', {
+                method: 'POST',
+                body: params
+                }).then(response => response.text())
+                .then((translatedMessage) => {
+                resultContainer.innerText = translatedMessage;
+                });
+            }
+        </script>
+
     </div>
   </body>
 </html>
