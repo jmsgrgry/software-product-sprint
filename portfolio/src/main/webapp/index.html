@@ -3,20 +3,37 @@
   <head>
     <meta charset="UTF-8">
     <title>James's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div id="content">
-      <h1>James B. Gregory</h1>
-      <img src="/images/James Gregory - Headshot.png" height=300pxs>
-      <p>Hello there! I'm a sophomore at Washington University in St. Louis studying Computer Science, Business, and Philosophy. </p>
-      <p>Here's some of what I've been working on:</p>
-      <p>     – Twitter's 2020 #TakeFlight Hackathon</p>
-      <p>     – Java Content Creator for Minecraft Realms</p>
-      <p>     – Webmaster for WashU's DSP Chapter</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+        <h1>James B. Gregory</h1>
+        <img src="/images/James Gregory - Headshot.png" height=300pxs>
+        <p>Hello there! I'm a sophomore at Washington University in St. Louis studying Computer Science, Business, and Philosophy. </p>
+        <p>Here's some of what I've been working on:</p>
+        <p>     – Twitter's 2020 #TakeFlight Hackathon</p>
+        <p>     – Java Content Creator for Minecraft Realms</p>
+        <p>     – Webmaster for WashU's DSP Chapter</p>
+        <!-- <button onclick="addRandomGreeting()">Hello</button> -->
+        <button onclick="getSkill()">Show a Skill</button>
+        <p id="skill-container"></p>
+        <form action="/form-handler" method="POST">
+            <p>Contact me:</p>
+            <textarea name="text-input">Hey James...</textarea>
+            <br/>
+            <input type="submit" />
+        </form>
+
+      <script>
+        async function getSkill() {
+        const responseFromServer = await fetch('/skills');
+        const textFromResponse = await responseFromServer.text();
+
+        const dateContainer = document.getElementById('skill-container');
+        dateContainer.innerText = textFromResponse;
+        }
+</script>
     </div>
   </body>
 </html>
